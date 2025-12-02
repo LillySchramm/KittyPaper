@@ -8,7 +8,7 @@ build_server:
     untracked: false
     expire_in: 7 days
     paths:
-      - build/libs/*.jar
+      - kitty-server/build/libs/*.jar
   script:
     - git config --global user.email "ci@gitlab.eps-dev.de"
     - git config --global user.name "CI"
