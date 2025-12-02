@@ -10,6 +10,6 @@ build_server:
     paths:
       - build/libs/*.jar
   script:
-    - gradle applyPatches
+    - gradle applyAllPatches
     - gradle createMojmapPaperclipJar
   needs: []
