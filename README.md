@@ -1,4 +1,5 @@
 <div align="center">
+
 ## KittyPaper
 
 [![Join us on Discord](https://discord.com/api/guilds/1350838001403564172/widget.png?style=shield)](https://discord.gg/USab3KXAza)
