@@ -1,0 +1,15 @@
+stages:
+  - build
+
+build_server:
+  image: gradle:8.14-jdk21
+  stage: build
+  artifacts:
+    untracked: false
+    expire_in: 7 days
+    paths:
+      - build/libs/*.jar
+  script:
+    - gradle applyPatches
+    - gradle createMojmapPaperclipJar
+  needs: []
