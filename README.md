@@ -4,7 +4,7 @@
 
 [![Join us on Discord](https://discord.com/api/guilds/1350838001403564172/widget.png?style=shield)](https://discord.gg/USab3KXAza)
 
-KittyScan is a drop-in replacement for [Paper](https://github.com/PaperMC/Paper) servers designed for state-of-the-art secruity.
+KittyPaper is a drop-in replacement for [Paper](https://github.com/PaperMC/Paper) servers designed for state-of-the-art secruity.
 </div>
 
 ## Contact
