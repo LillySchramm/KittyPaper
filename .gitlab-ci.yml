@@ -10,6 +10,8 @@ build_server:
     paths:
       - build/libs/*.jar
   script:
+    - git config --global user.email "ci@gitlab.eps-dev.de"
+    - git config --global user.name "CI"
     - gradle applyAllPatches
     - gradle createMojmapPaperclipJar
   needs: []
