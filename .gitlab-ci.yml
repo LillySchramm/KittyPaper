@@ -32,7 +32,7 @@ upload:
     - cd kittypaperversions
     - git config --global user.email "ci@gitlab.eps-dev.de"
     - git config --global user.name "CI"
-    - git remote add gitlab_origin https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.eps-dev.de/Lilly/kittypaperversions.git
+    - git remote add gitlab_origin https://oauth:${token}@gitlab.eps-dev.de/Lilly/kittypaperversions.git
     - git add .
     - git commit -m "Update versions for build $CI_PIPELINE_IID"
     - git push gitlab_origin HEAD:main
