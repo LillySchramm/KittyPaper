@@ -28,7 +28,7 @@ upload:
       - build_server
   script:
     - git clone https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.eps-dev.de/Lilly/kittypaperversions.git
-    - python3 generate.py
+    - python3 /app/generate.py
     - cd kittypaperversions
     - git config --global user.email "ci@gitlab.eps-dev.de"
     - git config --global user.name "CI"
