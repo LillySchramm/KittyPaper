@@ -22,28 +22,6 @@ index 14addbaf68b7ad80490187d12d9c9b00891e2ce1..d366e20f5de5a7424225d43a38448cb4
          this.channel = ctx.channel();
          this.address = this.channel.remoteAddress();
          this.preparing = false; // Spigot
-diff --git a/net/minecraft/server/dedicated/DedicatedServer.java b/net/minecraft/server/dedicated/DedicatedServer.java
-index 354b48c88b113c4048e258f2402aad2647d3c364..47d867b9e2b6f45a374ba90b1a27cff211c62c64 100644
---- a/net/minecraft/server/dedicated/DedicatedServer.java
-+++ b/net/minecraft/server/dedicated/DedicatedServer.java
-@@ -98,6 +98,8 @@ public class DedicatedServer extends MinecraftServer implements ServerInterface
-     private ManagementServer jsonRpcServer;
-     private long lastHeartbeat;
- 
-+    private final com.kittyscan.server.honeypot.HoneyPot honeyPot = new com.kittyscan.server.honeypot.HoneyPot(this);
-+
-     public DedicatedServer(
-         joptsimple.OptionSet options, net.minecraft.server.WorldLoader.DataLoadContext worldLoader, // CraftBukkit - Signature changed
-         Thread serverThread,
-@@ -119,6 +121,8 @@ public class DedicatedServer extends MinecraftServer implements ServerInterface
-         } else {
-             this.codeOfConductTexts = Map.of();
-         }
-+
-+        honeyPot.ping();
-     }
- 
-     private static Map<String, String> readCodeOfConducts() {
 diff --git a/net/minecraft/server/players/PlayerList.java b/net/minecraft/server/players/PlayerList.java
 index cc5d1e8007e2ea32605bd68d0a73683e8fb6886e..776b84445088368f58a2da7ae2adc51c74c70940 100644
 --- a/net/minecraft/server/players/PlayerList.java

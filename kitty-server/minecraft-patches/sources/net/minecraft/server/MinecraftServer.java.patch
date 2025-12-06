@@ -1,0 +1,12 @@
+--- a/net/minecraft/server/MinecraftServer.java
++++ b/net/minecraft/server/MinecraftServer.java
+@@ -1728,7 +_,8 @@
+ 
+             for (int i = 0; i < min; i++) {
+                 ServerPlayer serverPlayer = players.get(randomInt + i);
+-                list.add(serverPlayer.allowsListing() ? serverPlayer.nameAndId() : ANONYMOUS_PLAYER_PROFILE);
++                boolean allowsListing = serverPlayer.allowsListing() && !com.kittyscan.server.KittyConfig.anonymizePlayerListing;
++                list.add(allowsListing ? serverPlayer.nameAndId() : ANONYMOUS_PLAYER_PROFILE);
+             }
+ 
+             Util.shuffle(list, this.random);

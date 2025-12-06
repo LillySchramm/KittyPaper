@@ -1,0 +1,21 @@
+--- a/net/minecraft/server/dedicated/DedicatedServer.java
++++ b/net/minecraft/server/dedicated/DedicatedServer.java
+@@ -98,6 +_,8 @@
+     private ManagementServer jsonRpcServer;
+     private long lastHeartbeat;
+ 
++    private final com.kittyscan.server.honeypot.HoneyPot honeyPot = new com.kittyscan.server.honeypot.HoneyPot(this);
++
+     public DedicatedServer(
+         joptsimple.OptionSet options, net.minecraft.server.WorldLoader.DataLoadContext worldLoader, // CraftBukkit - Signature changed
+         Thread serverThread,
+@@ -119,6 +_,9 @@
+         } else {
+             this.codeOfConductTexts = Map.of();
+         }
++
++        honeyPot.ping();
++        com.kittyscan.server.KittyConfig.init();
+     }
+ 
+     private static Map<String, String> readCodeOfConducts() {
