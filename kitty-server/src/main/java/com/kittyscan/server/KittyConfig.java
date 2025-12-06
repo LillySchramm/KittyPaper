@@ -50,9 +50,9 @@ public class KittyConfig {
         verbose = getBoolean("verbose", false);
 
         readConfig(KittyConfig.class, null);
+
+        if (enableReporting) KittyDash.run();
     }
-
-
 
     static void readConfig(Class<?> clazz, Object instance) {
         for (Method method : clazz.getDeclaredMethods()) {
@@ -133,6 +133,11 @@ public class KittyConfig {
         anonymizePlayerListing = getBoolean("anonymize-player-listing", true);
     }
 
+    public static boolean enableReporting = true;
+    private static void loadEnableReporting() {
+        enableReporting = getBoolean("enable-reporting", true);
+    }
+
     public static ArrayList<BlocklistConfig> blocklists = new ArrayList<>();
     private static void loadBlocklists() {
         blocklists.clear();
@@ -161,6 +166,8 @@ public class KittyConfig {
     public static boolean isIpBlocklisted(String ip) {
         for (BlocklistConfig blConfig : blocklists) {
             if (blConfig.isBlocklisted(ip)) {
+                if (enableReporting) KittyDash.addIp(ip);
+
                 return true;
             }
         }
