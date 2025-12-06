@@ -69,7 +69,7 @@ public class KittyDash {
                     }
                     int responseCode = http.getResponseCode();
                     if (responseCode != 200) {
-                        System.out.println("Failed to report IPs to KittyDash. Response code: " + responseCode);
+                        LOGGER.error("Failed to report IPs to KittyDash. Response code: {}", responseCode);
                     }
                 } catch (IOException e) {
                     throw new RuntimeException(e);
