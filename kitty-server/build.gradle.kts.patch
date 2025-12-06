@@ -58,26 +58,6 @@
      // Deps that were previously in the API but have now been moved here for backwards compat, eventually to be removed
      runtimeOnly("commons-lang:commons-lang:2.6")
      runtimeOnly("org.xerial:sqlite-jdbc:3.49.1.0")
-@@ -197,14 +223,14 @@ tasks.jar {
-         val gitBranch = git.exec(providers, "rev-parse", "--abbrev-ref", "HEAD").get().trim()
-         attributes(
-             "Main-Class" to "org.bukkit.craftbukkit.Main",
--            "Implementation-Title" to "Paper",
-+            "Implementation-Title" to "KittyPaper",
-             "Implementation-Version" to implementationVersion,
-             "Implementation-Vendor" to date,
--            "Specification-Title" to "Paper",
-+            "Specification-Title" to "KittyPaper",
-             "Specification-Version" to project.version,
--            "Specification-Vendor" to "Paper Team",
--            "Brand-Id" to "papermc:paper",
--            "Brand-Name" to "Paper",
-+            "Specification-Vendor" to "KittyPaper Team",
-+            "Brand-Id" to "kittypapermc:kittypaper",
-+            "Brand-Name" to "KittyPaper",
-             "Build-Number" to (build ?: ""),
-             "Build-Time" to buildTime.toString(),
-             "Git-Branch" to gitBranch,
 @@ -263,7 +289,7 @@ tasks.test {
      jvmArgumentProviders.add(provider)
  }
