@@ -23,7 +23,7 @@ See the Documentation for configuration options: [https://kittypaper.com/docs](h
 ## Contact
 Join us on Discord:
 
-[![Join us on Discord](https://discord.com/api/guilds/1350838001403564172/widget.png?style=banner2)](https://purpurmc.org/discord)
+[![Join us on Discord](https://discord.com/api/guilds/1350838001403564172/widget.png?style=banner2)](https://discord.gg/USab3KXAza)
 
 ## License
 All patches are licensed under the [MIT license](https://gitlab.eps-dev.de/Lilly/kittypaper/-/blob/main/LICENSE), unless otherwise noted in the patch headers.
