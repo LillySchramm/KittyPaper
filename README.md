@@ -7,6 +7,19 @@
 KittyPaper is a drop-in replacement for [Paper](https://github.com/PaperMC/Paper) servers designed for state-of-the-art secruity.
 </div>
 
+## Features
+
+The current differences between KittyPaper and Paper are:
+
+- `hide-online-players` in `server.properties` is set to `true` by default to enhance player privacy.
+- Players are always anonymized in the player sample sent by the server list ping response. 
+- Request blocking using the [KittyBlock](https://github.com/LillySchramm/KittyS
+
+## Configuration
+
+See the Documentation for configuration options: [https://kittypaper.com/docs](https://kittypaper.com/docs)
+
+
 ## Contact
 Join us on Discord:
 
