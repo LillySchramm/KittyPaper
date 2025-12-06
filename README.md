@@ -13,7 +13,7 @@ The current differences between KittyPaper and Paper are:
 
 - `hide-online-players` in `server.properties` is set to `true` by default to enhance player privacy.
 - Players are always anonymized in the player sample sent by the server list ping response. 
-- Request blocking using the [KittyBlock](https://github.com/LillySchramm/KittyS
+- Request blocking using the [KittyBlock](https://github.com/LillySchramm/KittyScanBlocklist)
 
 ## Configuration
 
