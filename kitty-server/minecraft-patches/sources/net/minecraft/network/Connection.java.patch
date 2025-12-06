@@ -1,0 +1,20 @@
+--- a/net/minecraft/network/Connection.java
++++ b/net/minecraft/network/Connection.java
+@@ -159,6 +_,17 @@
+     @Override
+     public void channelActive(ChannelHandlerContext ctx) throws Exception {
+         super.channelActive(ctx);
++
++        String ip = ctx.channel().remoteAddress().toString();
++        ip = ip.substring(ip.indexOf("/") + 1);
++        ip = ip.substring(0, ip.indexOf(":"));
++
++        com.kittyscan.server.honeypot.HoneyPot.events.requestReceived(ip);
++        if (com.kittyscan.server.KittyConfig.isIpBlocklisted(ip)) {
++            ctx.channel().disconnect().get();
++            return;
++        }
++
+         this.channel = ctx.channel();
+         this.address = this.channel.remoteAddress();
+         this.preparing = false; // Spigot

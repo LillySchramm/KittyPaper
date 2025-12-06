@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
@@ -51,15 +52,7 @@ public class KittyConfig {
         readConfig(KittyConfig.class, null);
     }
 
-    protected static void log(String s) {
-        if (verbose) {
-            log(Level.INFO, s);
-        }
-    }
 
-    protected static void log(Level level, String s) {
-        Bukkit.getLogger().log(level, s);
-    }
 
     static void readConfig(Class<?> clazz, Object instance) {
         for (Method method : clazz.getDeclaredMethods()) {
@@ -138,5 +131,39 @@ public class KittyConfig {
     public static boolean anonymizePlayerListing = true;
     private static void loadAnonymizePlayerListing() {
         anonymizePlayerListing = getBoolean("anonymize-player-listing", true);
+    }
+
+    public static ArrayList<BlocklistConfig> blocklists = new ArrayList<>();
+    private static void loadBlocklists() {
+        blocklists.clear();
+        List<?> list = getList("blocklists", new ArrayList<>(
+            List.of(
+                ImmutableMap.of(
+                    "url", "https://raw.githubusercontent.com/LillySchramm/KittyScanBlocklist/refs/heads/main/ips-24.txt",
+                    "refresh-interval-minutes", 60,
+                    "subnet-mask", 24
+                )
+        )));
+        for (Object obj : list) {
+            if (obj instanceof Map<?, ?> map) {
+                String url = (String) map.get("url");
+                int refreshIntervalMinutes = (int) map.get("refresh-interval-minutes");
+                int subnetMask = (int) map.get("subnet-mask");
+                blocklists.add(new BlocklistConfig(url, refreshIntervalMinutes, subnetMask));
+            }
+        }
+
+        for (BlocklistConfig blConfig : blocklists) {
+            blConfig.update();
+        }
+    }
+
+    public static boolean isIpBlocklisted(String ip) {
+        for (BlocklistConfig blConfig : blocklists) {
+            if (blConfig.isBlocklisted(ip)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
