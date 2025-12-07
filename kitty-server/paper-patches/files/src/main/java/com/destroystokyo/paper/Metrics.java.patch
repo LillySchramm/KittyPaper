@@ -1,0 +1,74 @@
+--- a/src/main/java/com/destroystokyo/paper/Metrics.java
++++ b/src/main/java/com/destroystokyo/paper/Metrics.java
+@@ -593,27 +_,18 @@
+             boolean logFailedRequests = config.getBoolean("logFailedRequests", false);
+             // Only start Metrics, if it's enabled in the config
+             if (config.getBoolean("enabled", true)) {
+-                Metrics metrics = new Metrics("Paper", serverUUID, logFailedRequests, Bukkit.getLogger());
++                Metrics metrics = new Metrics("KittyPaper", serverUUID, logFailedRequests, Bukkit.getLogger());
+ 
+-                metrics.addCustomChart(new Metrics.SimplePie("minecraft_version", () -> {
++                metrics.addCustomChart(new Metrics.SimplePie("minecraftVersion", () -> {
+                     String minecraftVersion = Bukkit.getVersion();
+                     minecraftVersion = minecraftVersion.substring(minecraftVersion.indexOf("MC: ") + 4, minecraftVersion.length() - 1);
+                     return minecraftVersion;
+                 }));
+ 
+                 metrics.addCustomChart(new Metrics.SingleLineChart("players", () -> Bukkit.getOnlinePlayers().size()));
+-                metrics.addCustomChart(new Metrics.SimplePie("online_mode", () -> Bukkit.getOnlineMode() ? "online" : "offline"));
+-                final String paperVersion;
+-                final String implVersion = org.bukkit.craftbukkit.Main.class.getPackage().getImplementationVersion();
+-                if (implVersion != null) {
+-                    final String buildOrHash = implVersion.substring(implVersion.lastIndexOf('-') + 1);
+-                    paperVersion = "git-Paper-%s-%s".formatted(Bukkit.getServer().getMinecraftVersion(), buildOrHash);
+-                } else {
+-                    paperVersion = "unknown";
+-                }
+-                metrics.addCustomChart(new Metrics.SimplePie("paper_version", () -> paperVersion));
+ 
+-                metrics.addCustomChart(new Metrics.DrilldownPie("java_version", () -> {
++                metrics.addCustomChart(new Metrics.SimplePie("onlineMode", () -> Bukkit.getOnlineMode() ? "online" : "offline"));
++                metrics.addCustomChart(new Metrics.DrilldownPie("javaVersion", () -> {
+                     Map<String, Map<String, Integer>> map = new HashMap<>();
+                     String javaVersion = System.getProperty("java.version");
+                     Map<String, Integer> entry = new HashMap<>();
+@@ -640,39 +_,6 @@
+                         release = "Java " + majorVersion;
+                     }
+                     map.put(release, entry);
+-
+-                    return map;
+-                }));
+-
+-                metrics.addCustomChart(new Metrics.DrilldownPie("legacy_plugins", () -> {
+-                    Map<String, Map<String, Integer>> map = new HashMap<>();
+-
+-                    // count legacy plugins
+-                    int legacy = 0;
+-                    for (Plugin plugin : Bukkit.getPluginManager().getPlugins()) {
+-                        if (CraftMagicNumbers.isLegacy(plugin.getDescription())) {
+-                            legacy++;
+-                        }
+-                    }
+-
+-                    // insert real value as lower dimension
+-                    Map<String, Integer> entry = new HashMap<>();
+-                    entry.put(String.valueOf(legacy), 1);
+-
+-                    // create buckets as higher dimension
+-                    if (legacy == 0) {
+-                        map.put("0 \uD83D\uDE0E", entry); // :sunglasses:
+-                    } else if (legacy <= 5) {
+-                        map.put("1-5", entry);
+-                    } else if (legacy <= 10) {
+-                        map.put("6-10", entry);
+-                    } else if (legacy <= 25) {
+-                        map.put("11-25", entry);
+-                    } else if (legacy <= 50) {
+-                        map.put("26-50", entry);
+-                    } else {
+-                        map.put("50+ \uD83D\uDE2D", entry); // :cry:
+-                    }
+ 
+                     return map;
+                 }));
