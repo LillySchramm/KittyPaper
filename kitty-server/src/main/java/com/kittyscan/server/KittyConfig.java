@@ -2,10 +2,12 @@ package com.kittyscan.server;
 
 import com.google.common.base.Throwables;
 import com.google.common.collect.ImmutableMap;
+import com.mojang.logging.LogUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.slf4j.Logger;
 
 import java.io.File;
 import java.io.IOException;
@@ -26,7 +28,12 @@ public class KittyConfig {
     public static YamlConfiguration config;
     public static boolean verbose;
 
+    private static final Logger LOGGER = LogUtils.getLogger();
+
     public static void init() {
+        LOGGER.info("IMPORTANT: KittyPaper is currently in BETA.");
+        LOGGER.info("IMPORTANT: Please report any issues you find at https://github.com/LillySchramm/KittyPaper/issues/new");
+
         File configFile = new File("kittypaper.yml");
         if (!configFile.exists()) {
             try {
