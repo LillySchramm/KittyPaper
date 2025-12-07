@@ -1,6 +1,6 @@
 --- a/paper-server/build.gradle.kts
 +++ b/paper-server/build.gradle.kts
-@@ -23,6 +23,16 @@ paperweight {
+@@ -23,6 +_,16 @@
      minecraftVersion = providers.gradleProperty("mcVersion")
      gitFilePatches = false
  
@@ -17,7 +17,7 @@
      spigot {
          enabled = true
          buildDataRef = "42d18d4c4653ffc549778dbe223f6994a031d69e"
-@@ -104,7 +114,21 @@ if (project.providers.gradleProperty("publishDevBundle").isPresent) {
+@@ -104,7 +_,21 @@
      }
  }
  
@@ -40,7 +40,7 @@
  configurations.named(log4jPlugins.compileClasspathConfigurationName) {
      extendsFrom(configurations.compileClasspath.get())
  }
-@@ -127,7 +151,7 @@ abstract class MockitoAgentProvider : CommandLineArgumentProvider {
+@@ -127,7 +_,7 @@
  }
  
  dependencies {
@@ -49,7 +49,7 @@
      implementation("ca.spottedleaf:concurrentutil:0.0.7")
      implementation("org.jline:jline-terminal-ffm:3.27.1") // use ffm on java 22+
      implementation("org.jline:jline-terminal-jni:3.27.1") // fall back to jni on java 21
-@@ -153,6 +177,8 @@ dependencies {
+@@ -153,6 +_,8 @@
      implementation("org.ow2.asm:asm-commons:9.8")
      implementation("org.spongepowered:configurate-yaml:4.2.0")
  
@@ -58,7 +58,7 @@
      // Deps that were previously in the API but have now been moved here for backwards compat, eventually to be removed
      runtimeOnly("commons-lang:commons-lang:2.6")
      runtimeOnly("org.xerial:sqlite-jdbc:3.49.1.0")
-@@ -263,7 +289,7 @@ tasks.test {
+@@ -263,7 +_,7 @@
      jvmArgumentProviders.add(provider)
  }
  
