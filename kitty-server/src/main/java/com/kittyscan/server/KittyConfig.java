@@ -51,7 +51,8 @@ public class KittyConfig {
 
         readConfig(KittyConfig.class, null);
 
-        if (enableReporting) KittyDash.run();
+        if (enableDashboard) KittyDash.run();
+        if (enableSuspiciousReporting) KittyStats.run();
     }
 
     static void readConfig(Class<?> clazz, Object instance) {
@@ -133,9 +134,14 @@ public class KittyConfig {
         anonymizePlayerListing = getBoolean("anonymize-player-listing", true);
     }
 
-    public static boolean enableReporting = true;
+    public static boolean enableDashboard = true;
+    private static void loadEnableDashboard() {
+        enableDashboard = getBoolean("enable-dashboard", true);
+    }
+
+    public static boolean enableSuspiciousReporting = true;
     private static void loadEnableReporting() {
-        enableReporting = getBoolean("enable-reporting", true);
+        enableSuspiciousReporting = getBoolean("enable-reporting", true);
     }
 
     public static ArrayList<BlocklistConfig> blocklists = new ArrayList<>();
@@ -166,7 +172,7 @@ public class KittyConfig {
     public static boolean isIpBlocklisted(String ip) {
         for (BlocklistConfig blConfig : blocklists) {
             if (blConfig.isBlocklisted(ip)) {
-                if (enableReporting) KittyDash.addIp(ip);
+                if (enableDashboard) KittyDash.addIp(ip);
                 KittyStats.addBlockedIP(ip);
 
                 return true;

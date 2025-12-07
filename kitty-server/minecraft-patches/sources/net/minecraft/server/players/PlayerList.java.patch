@@ -1,14 +1,6 @@
-From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
-From: Lilly Schramm <privat@eps-dev.de>
-Date: Wed, 3 Dec 2025 22:12:03 +0100
-Subject: [PATCH] add honeypot features
-
-
-diff --git a/net/minecraft/server/players/PlayerList.java b/net/minecraft/server/players/PlayerList.java
-index cc5d1e8007e2ea32605bd68d0a73683e8fb6886e..776b84445088368f58a2da7ae2adc51c74c70940 100644
 --- a/net/minecraft/server/players/PlayerList.java
 +++ b/net/minecraft/server/players/PlayerList.java
-@@ -232,6 +232,11 @@ public abstract class PlayerList {
+@@ -232,6 +_,12 @@
          // Ensure that player inventory is populated with its viewer
          player.containerMenu.transferTo(player.containerMenu, bukkitPlayer);
  
@@ -16,6 +8,7 @@ index cc5d1e8007e2ea32605bd68d0a73683e8fb6886e..776b84445088368f58a2da7ae2adc51c
 +        ip = ip.substring(ip.indexOf("/") + 1);
 +        ip = ip.substring(0, ip.indexOf(":"));
 +        com.kittyscan.server.honeypot.HoneyPot.events.playerJoined(bukkitPlayer.getUniqueId().toString(), bukkitPlayer.getName(), ip); // HoneyPot
++        com.kittyscan.server.KittyStats.logJoinedIP(ip);
 +
          org.bukkit.event.player.PlayerJoinEvent playerJoinEvent = new org.bukkit.event.player.PlayerJoinEvent(bukkitPlayer, io.papermc.paper.adventure.PaperAdventure.asAdventure(mutableComponent)); // Paper - Adventure
          this.cserver.getPluginManager().callEvent(playerJoinEvent);

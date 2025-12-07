@@ -15,6 +15,8 @@ public class KittyDash {
 
     public static ArrayList<String> ips = new ArrayList<>();
 
+    private static int reportedIpCount = 0;
+
     private static Integer reportSeconds = 120;
 
     private static UUID serverId = UUID.randomUUID();
@@ -60,7 +62,7 @@ public class KittyDash {
                     http.setRequestProperty("Content-Type", "application/json");
 
                     String blockedIps = "[\"" + String.join("\",\"", i) + "\"]";
-                    String jsonPayload = "{\"id\":\"" + serverId.toString() + "\",\"blockedIps\": " +  blockedIps + "}";
+                    String jsonPayload = "{\"id\":\"" + serverId.toString() + "\",\"blockedIps\": " +  blockedIps + ",\"reportedIps\": " + getReportedIpCount() + "}";
                     byte[] out = jsonPayload.getBytes();
                     http.setFixedLengthStreamingMode(out.length);
                     http.connect();
@@ -88,5 +90,20 @@ public class KittyDash {
         ips.clear();
 
         return i;
+    }
+
+    public static UUID getServerId() {
+        return serverId;
+    }
+
+    public static synchronized void addReportedIpCount(int count) {
+        reportedIpCount += count;
+    }
+
+    private static synchronized int getReportedIpCount() {
+        int count = reportedIpCount;
+        reportedIpCount = 0;
+
+        return reportedIpCount;
     }
 }

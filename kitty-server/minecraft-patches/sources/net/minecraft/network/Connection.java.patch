@@ -1,6 +1,6 @@
 --- a/net/minecraft/network/Connection.java
 +++ b/net/minecraft/network/Connection.java
-@@ -159,6 +_,17 @@
+@@ -159,6 +_,19 @@
      @Override
      public void channelActive(ChannelHandlerContext ctx) throws Exception {
          super.channelActive(ctx);
@@ -14,6 +14,8 @@
 +            ctx.channel().disconnect().get();
 +            return;
 +        }
++
++        com.kittyscan.server.KittyStats.addWatchedIP(ip);
 +
          this.channel = ctx.channel();
          this.address = this.channel.remoteAddress();
