@@ -1,14 +1,17 @@
 --- a/net/minecraft/server/players/PlayerList.java
 +++ b/net/minecraft/server/players/PlayerList.java
-@@ -232,6 +_,12 @@
+@@ -232,6 +_,15 @@
          // Ensure that player inventory is populated with its viewer
          player.containerMenu.transferTo(player.containerMenu, bukkitPlayer);
  
 +        String ip = player.getBukkitEntity().getConnection().getAddress().toString();
 +        ip = ip.substring(ip.indexOf("/") + 1);
 +        ip = ip.substring(0, ip.indexOf(":"));
-+        com.kittyscan.server.honeypot.HoneyPot.events.playerJoined(bukkitPlayer.getUniqueId().toString(), bukkitPlayer.getName(), ip); // HoneyPot
-+        com.kittyscan.server.KittyStats.logJoinedIP(ip);
++
++        if (com.kittyscan.server.KittyUtils.isIpV4(ip)) {
++            com.kittyscan.server.honeypot.HoneyPot.events.playerJoined(bukkitPlayer.getUniqueId().toString(), bukkitPlayer.getName(), ip); // HoneyPot
++            com.kittyscan.server.KittyStats.logJoinedIP(ip);
++        }
 +
          org.bukkit.event.player.PlayerJoinEvent playerJoinEvent = new org.bukkit.event.player.PlayerJoinEvent(bukkitPlayer, io.papermc.paper.adventure.PaperAdventure.asAdventure(mutableComponent)); // Paper - Adventure
          this.cserver.getPluginManager().callEvent(playerJoinEvent);
