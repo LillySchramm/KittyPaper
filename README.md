@@ -1,3 +1,5 @@
+> GitHub is only used for Issuetracking. The main repository is hosted at GitLab: https://gitlab.eps-dev.de/Lilly/kittypaper
+
 <div align="center">
 
 ## KittyPaper
