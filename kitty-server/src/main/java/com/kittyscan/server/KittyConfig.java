@@ -167,6 +167,7 @@ public class KittyConfig {
         for (BlocklistConfig blConfig : blocklists) {
             if (blConfig.isBlocklisted(ip)) {
                 if (enableReporting) KittyDash.addIp(ip);
+                KittyStats.addBlockedIP(ip);
 
                 return true;
             }
