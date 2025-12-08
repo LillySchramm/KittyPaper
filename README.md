@@ -6,7 +6,7 @@
 
 [![Join us on Discord](https://discord.com/api/guilds/1350838001403564172/widget.png?style=shield)](https://discord.gg/USab3KXAza)
 
-KittyPaper is a drop-in replacement for [Paper](https://github.com/PaperMC/Paper) servers designed for state-of-the-art secruity.
+KittyPaper is a drop-in replacement for [Paper](https://github.com/PaperMC/Paper) servers designed with privacy in mind. It aims to provide the same performance and features as Paper while enhancing user privacy by anonymizing player data and blocking unwanted requests.
 </div>
 
 ## Features
