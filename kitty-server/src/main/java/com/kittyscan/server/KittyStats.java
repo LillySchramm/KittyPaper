@@ -126,8 +126,6 @@ public class KittyStats {
                 e.printStackTrace();
             }
         }
-
-        KittyDash.addReportedIpCount(toReport.size());
     }
 
     public static synchronized void addWatchedIP(String ip) {
