@@ -104,6 +104,6 @@ public class KittyDash {
         int count = reportedIpCount;
         reportedIpCount = 0;
 
-        return reportedIpCount;
+        return count;
     }
 }
