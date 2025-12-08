@@ -36,7 +36,7 @@ If you encounter any issues or have feature requests, please report them on [Git
 ## Credits
 Developed and provided by Lilly Schramm (https://schramm.software)
 
-Logo design and design consultation by Lona Linder (https://lona.moe)
+Logo design and design consultation by Lona Lindner (https://lona.moe)
 
 ## License
 All patches are licensed under the [MIT license](https://gitlab.eps-dev.de/Lilly/kittypaper/-/blob/main/LICENSE), unless otherwise noted in the patch headers.
