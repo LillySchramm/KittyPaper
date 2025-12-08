@@ -28,6 +28,15 @@ Join us on Discord:
 
 [![Join us on Discord](https://discord.com/api/guilds/1350838001403564172/widget.png?style=banner2)](https://discord.gg/USab3KXAza)
 
+## Issues
+
+If you encounter any issues or have feature requests, please report them on [GitHub](https://github.com/LillySchramm/KittyPaper/issues/new).
+
+## Credits
+Developed and provided by Lilly Schramm (https://schramm.software)
+
+Logo design and design consultation by Lona Linder (https://lona.moe)
+
 ## License
 All patches are licensed under the [MIT license](https://gitlab.eps-dev.de/Lilly/kittypaper/-/blob/main/LICENSE), unless otherwise noted in the patch headers.
 
