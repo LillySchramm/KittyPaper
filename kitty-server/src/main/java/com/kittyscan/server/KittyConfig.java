@@ -139,16 +139,28 @@ public class KittyConfig {
     public static boolean anonymizePlayerListing = true;
     private static void loadAnonymizePlayerListing() {
         anonymizePlayerListing = getBoolean("anonymize-player-listing", true);
+
+        if (verbose) {
+            LOGGER.info("anonymize-player-listing: {}", anonymizePlayerListing);
+        }
     }
 
     public static boolean enableDashboard = true;
     private static void loadEnableDashboard() {
         enableDashboard = getBoolean("enable-dashboard", true);
+
+        if (verbose) {
+            LOGGER.info("enable-dashboard: {}", enableDashboard);
+        }
     }
 
     public static boolean enableSuspiciousReporting = true;
     private static void loadEnableReporting() {
         enableSuspiciousReporting = getBoolean("enable-reporting", true);
+
+        if (verbose) {
+            LOGGER.info("enable-reporting: {}", enableSuspiciousReporting);
+        }
     }
 
     public static ArrayList<BlocklistConfig> blocklists = new ArrayList<>();
@@ -168,6 +180,11 @@ public class KittyConfig {
                 int refreshIntervalMinutes = (int) map.get("refresh-interval-minutes");
                 int subnetMask = (int) map.get("subnet-mask");
                 blocklists.add(new BlocklistConfig(url, refreshIntervalMinutes, subnetMask));
+
+                if (verbose) {
+                    LOGGER.info("Loaded blocklist: url={}, refresh-interval-minutes={}, subnet-mask={}",
+                            url, refreshIntervalMinutes, subnetMask);
+                }
             }
         }
 
@@ -177,14 +194,27 @@ public class KittyConfig {
     }
 
     public static boolean isIpBlocklisted(String ip) {
+        if (verbose) {
+            LOGGER.info("Checking if IP is blocklisted: {}", ip);
+        }
+
         for (BlocklistConfig blConfig : blocklists) {
             if (blConfig.isBlocklisted(ip)) {
                 if (enableDashboard) KittyDash.addIp(ip);
                 KittyStats.addBlockedIP(ip);
 
+                if (verbose) {
+                    LOGGER.info("IP {} is blocklisted by blocklist: {}", ip, blConfig.url);
+                }
+
                 return true;
             }
         }
+
+        if (verbose) {
+            LOGGER.info("IP is not blocklisted: {}", ip);
+        }
+
         return false;
     }
 }

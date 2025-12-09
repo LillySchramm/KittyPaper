@@ -22,15 +22,27 @@ public class KittyDash {
     public static void run() {
         File idFile = new File(".kitty-id");
         if (idFile.exists()) {
+            if (KittyConfig.verbose) {
+                LOGGER.info("Found existing KittyDash ID file.");
+            }
+
             try {
                 var idString = java.nio.file.Files.readString(idFile.toPath()).trim();
                 serverId = UUID.fromString(idString);
             } catch (Exception e) {
                 e.printStackTrace();
             }
+
+            if (KittyConfig.verbose) {
+                LOGGER.info("Using KittyDash server ID: {}", serverId.toString());
+            }
         } else {
             try {
                 java.nio.file.Files.writeString(idFile.toPath(), serverId.toString());
+
+                if (KittyConfig.verbose) {
+                    LOGGER.info("Created new KittyDash ID file with ID: {}", serverId.toString());
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -50,7 +62,7 @@ public class KittyDash {
             @Override
             public void run() {
                 var i = getIps();
-                URL url = null;
+                URL url;
                 try {
                     url = new URL("https://kittypaper.com/api/report");
                     URLConnection con = url.openConnection();
@@ -61,6 +73,11 @@ public class KittyDash {
 
                     String blockedIps = "[\"" + String.join("\",\"", i) + "\"]";
                     String jsonPayload = "{\"id\":\"" + serverId.toString() + "\",\"blockedIps\": " +  blockedIps + ",\"reportedIps\": " + 0 + "}";
+
+                    if (KittyConfig.verbose) {
+                        LOGGER.info("Reporting to KittyDash: {}", jsonPayload);
+                    }
+
                     byte[] out = jsonPayload.getBytes();
                     http.setFixedLengthStreamingMode(out.length);
                     http.connect();
@@ -70,6 +87,10 @@ public class KittyDash {
                     int responseCode = http.getResponseCode();
                     if (responseCode != 200) {
                         LOGGER.error("Failed to report IPs to KittyDash. Response code: {}", responseCode);
+                    } else {
+                        if (KittyConfig.verbose) {
+                            LOGGER.info("Successfully reported {} IPs to KittyDash.", i.size());
+                        }
                     }
                 } catch (IOException e) {
                     throw new RuntimeException(e);

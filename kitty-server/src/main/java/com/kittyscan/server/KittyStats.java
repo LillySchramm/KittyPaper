@@ -62,6 +62,10 @@ public class KittyStats {
         if (!joinedIPsCache.contains(ip)) {
             joinedIPsCache.add(ip);
             saveJoinedIPs(joinedIPsCache);
+
+            if (KittyConfig.verbose) {
+                LOGGER.info("Logged newly joined IP: {}", ip);
+            }
         }
     }
 
@@ -86,13 +90,27 @@ public class KittyStats {
     }
 
     private static synchronized void processWatchedIPs() {
+        if (KittyConfig.verbose) {
+            LOGGER.info("Processing watched IPs...");
+        }
+
         long currentTime = System.currentTimeMillis() / 1000L;
 
         ArrayList<WatchedIPItem> toRemove = new ArrayList<>();
         ArrayList<String> toReport = new ArrayList<>();
         for (WatchedIPItem item : watchedIPs) {
             if ((currentTime - item.timestamp) > REPORT_WAIT_TIME) {
+                if (KittyConfig.verbose) {
+                    LOGGER.info("Ip {} has been watched for {} seconds, checking if suspicious...", item.ip, (currentTime - item.timestamp));
+                }
+
                 if (!joinedIPsCache.contains(item.ip)) {
+                    if (KittyConfig.verbose) {
+                        LOGGER.info("Ip {} is suspicious, adding to report list.", item.ip);
+                    } else {
+                        LOGGER.info("Ip {} is not suspicious, player has joined before.", item.ip);
+                    }
+
                     toReport.add(item.ip);
                 }
                 toRemove.add(item);
@@ -112,6 +130,11 @@ public class KittyStats {
 
                 String blockedIps = "[\"" + String.join("\",\"", toReport) + "\"]";
                 String jsonPayload = "{\"id\":\"" + KittyDash.getServerId().toString() + "\",\"ips\": " +  blockedIps + "}";
+
+                if (KittyConfig.verbose) {
+                    LOGGER.info("Reporting suspicious IPs to KittyDash: {}", jsonPayload);
+                }
+
                 byte[] out = jsonPayload.getBytes();
                 http.setFixedLengthStreamingMode(out.length);
                 http.connect();
@@ -121,6 +144,10 @@ public class KittyStats {
                 int responseCode = http.getResponseCode();
                 if (responseCode != 200) {
                     LOGGER.error("Failed to report IPs to KittyDash. Response code: {}", responseCode);
+                } else {
+                    if (KittyConfig.verbose) {
+                        LOGGER.info("Successfully reported {} suspicious IPs to KittyDash.", toReport.size());
+                    }
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -140,6 +167,10 @@ public class KittyStats {
         long timestamp = System.currentTimeMillis() / 1000L;
 
         watchedIPs.add(new WatchedIPItem(ip, timestamp));
+
+        if (KittyConfig.verbose) {
+            LOGGER.info("Added watched IP: {}", ip);
+        }
     }
 
     private static class WatchedIPItem {
