@@ -23,6 +23,10 @@ The current differences between KittyPaper and Paper are:
 
 See the Documentation for configuration options: [https://kittypaper.com/docs](https://kittypaper.com/docs)
 
+## Support KittyPaper
+
+If you find KittyPaper useful and would like to support its development, consider sponsoring the project on Patreon: https://www.patreon.com/15234749/join
+
 
 ## Contact
 Join us on Discord:
@@ -32,6 +36,10 @@ Join us on Discord:
 ## Issues
 
 If you encounter any issues or have feature requests, please report them on [GitHub](https://github.com/LillySchramm/KittyPaper/issues/new).
+
+## Support KittyPaper
+
+If you find KittyPaper useful and would like to support its development, consider sponsoring the project on Patreon: https://www.patreon.com/15234749/join
 
 ## Credits
 Developed and provided by Lilly Schramm (https://schramm.software)
