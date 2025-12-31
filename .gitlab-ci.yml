@@ -3,7 +3,7 @@ stages:
   - upload
 
 build_server:
-  image: gradle:8.14-jdk21
+  image: gradle:9.2-jdk21
   stage: build
   artifacts:
     untracked: false
@@ -16,7 +16,7 @@ build_server:
     - export BUILD_NUMBER=$CI_PIPELINE_IID
     - gradle applyAllPatches
     - gradle createMojmapPaperclipJar
-    - cp kitty-server/build/libs/kitty-paperclip-1.21.10-R0.1-SNAPSHOT-mojmap.jar server.jar
+    - cp kitty-server/build/libs/kitty-paperclip-1.21.11-R0.1-SNAPSHOT-mojmap.jar server.jar
   needs: []
 
 upload:
@@ -24,6 +24,8 @@ upload:
     name: registry.cdev.nexus/kittysuite/version:main
     pull_policy: always
   stage: upload
+  only:
+    - main
   needs:
       - build_server
   script:
