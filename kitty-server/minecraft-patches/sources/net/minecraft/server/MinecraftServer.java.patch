@@ -1,6 +1,6 @@
 --- a/net/minecraft/server/MinecraftServer.java
 +++ b/net/minecraft/server/MinecraftServer.java
-@@ -1728,7 +_,8 @@
+@@ -1742,7 +_,8 @@
  
              for (int i = 0; i < min; i++) {
                  ServerPlayer serverPlayer = players.get(randomInt + i);

@@ -1,6 +1,6 @@
 --- a/net/minecraft/network/Connection.java
 +++ b/net/minecraft/network/Connection.java
-@@ -159,6 +_,21 @@
+@@ -135,6 +_,21 @@
      @Override
      public void channelActive(ChannelHandlerContext ctx) throws Exception {
          super.channelActive(ctx);

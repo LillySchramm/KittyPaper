@@ -1,6 +1,6 @@
 --- a/net/minecraft/server/dedicated/DedicatedServerProperties.java
 +++ b/net/minecraft/server/dedicated/DedicatedServerProperties.java
-@@ -102,7 +_,7 @@
+@@ -111,7 +_,7 @@
      public final String regionFileComression = this.get("region-file-compression", "deflate");
      public final boolean enableJmxMonitoring = this.get("enable-jmx-monitoring", false);
      public final Settings<DedicatedServerProperties>.MutableValue<Boolean> enableStatus = this.getMutable("enable-status", true);
