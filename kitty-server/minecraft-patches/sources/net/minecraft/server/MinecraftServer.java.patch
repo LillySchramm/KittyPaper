@@ -1,6 +1,16 @@
 --- a/net/minecraft/server/MinecraftServer.java
 +++ b/net/minecraft/server/MinecraftServer.java
-@@ -1742,7 +_,8 @@
+@@ -1292,7 +_,8 @@
+             // Paper end - Add onboarding message for initial server start
+             // Paper start - Improve outdated version checking
+             if (System.getProperty("paper.disableStartupVersionCheck") == null && io.papermc.paper.configuration.GlobalConfiguration.get().updateChecker.enabled) {
+-                CompletableFuture.runAsync(com.destroystokyo.paper.PaperVersionFetcher::getUpdateStatusStartupMessage, io.papermc.paper.util.MCUtil.ASYNC_EXECUTOR);
++                // KittyPaper - disable paper version check, maybe implement our own later
++                // CompletableFuture.runAsync(com.destroystokyo.paper.PaperVersionFetcher::getUpdateStatusStartupMessage, io.papermc.paper.util.MCUtil.ASYNC_EXECUTOR);
+             }
+             // Paper end - Improve outdated version checking
+ 
+@@ -1747,7 +_,8 @@
  
              for (int i = 0; i < min; i++) {
                  ServerPlayer serverPlayer = players.get(randomInt + i);

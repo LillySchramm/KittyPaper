@@ -1,11 +1,34 @@
 --- a/src/main/java/com/destroystokyo/paper/PaperVersionFetcher.java
 +++ b/src/main/java/com/destroystokyo/paper/PaperVersionFetcher.java
-@@ -35,7 +_,7 @@
-     private static final Logger LOGGER = LogUtils.getClassLogger();
-     private static final int DISTANCE_ERROR = -1;
-     private static final int DISTANCE_UNKNOWN = -2;
--    private static final String DOWNLOAD_PAGE = "https://papermc.io/downloads/paper";
-+    private static final String DOWNLOAD_PAGE = "https://kittypaper.com/download";
+@@ -112,30 +_,7 @@
+     }
  
-     @Override
-     public long getCacheTime() {
+     private static Component getUpdateStatusMessage() {
+-        int distance = DISTANCE_ERROR;
+-
+-        final OptionalInt buildNumber = PaperVersionFetcher.BUILD_INFO.buildNumber();
+-        if (buildNumber.isPresent()) {
+-            distance = fetchDistanceFromSiteApi(buildNumber.getAsInt());
+-        } else {
+-            final Optional<String> gitBranch = PaperVersionFetcher.BUILD_INFO.gitBranch();
+-            final Optional<String> gitCommit = PaperVersionFetcher.BUILD_INFO.gitCommit();
+-            if (gitBranch.isPresent() && gitCommit.isPresent()) {
+-                distance = fetchDistanceFromGitHub(gitBranch.get(), gitCommit.get());
+-            }
+-        }
+-
+-        return switch (distance) {
+-            case DISTANCE_ERROR -> text("Error obtaining version information", NamedTextColor.YELLOW);
+-            case 0 -> text("You are running the latest version", NamedTextColor.GREEN);
+-            case DISTANCE_UNKNOWN -> text("Unknown version", NamedTextColor.YELLOW);
+-            default -> text("You are " + distance + " version(s) behind", NamedTextColor.YELLOW)
+-                .append(Component.newline())
+-                .append(text("Download the new version at: ")
+-                    .append(text(DOWNLOAD_PAGE, NamedTextColor.GOLD)
+-                        .hoverEvent(text("Click to open", NamedTextColor.WHITE))
+-                        .clickEvent(ClickEvent.openUrl(DOWNLOAD_PAGE))));
+-        };
++        return Component.text("");
+     }
+ 
+     private record MinecraftVersionFetcher(String latestVersion, int distance) {}
