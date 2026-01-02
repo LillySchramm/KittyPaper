@@ -107,10 +107,7 @@ public class KittyStats {
                 if (!joinedIPsCache.contains(item.ip)) {
                     if (KittyConfig.verbose) {
                         LOGGER.info("Ip {} is suspicious, adding to report list.", item.ip);
-                    } else {
-                        LOGGER.info("Ip {} is not suspicious, player has joined before.", item.ip);
                     }
-
                     toReport.add(item.ip);
                 }
                 toRemove.add(item);
