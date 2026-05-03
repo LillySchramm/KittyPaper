@@ -1,9 +1,10 @@
 --- a/paper-server/build.gradle.kts
 +++ b/paper-server/build.gradle.kts
-@@ -22,6 +_,16 @@
-     minecraftVersion = providers.gradleProperty("mcVersion")
-     gitFilePatches = false
- 
+@@ -25,6 +_,16 @@
+     updatingMinecraft {
+         // oldPaperCommit = "7e80cef5198561d0db53406127e5b8bc7af51577"
+     }
++
 +    val kitty = forks.register("kitty") {
 +        upstream.patchDir("paperServer") {
 +            upstreamPath = "paper-server"
@@ -13,55 +14,31 @@
 +        }
 +    }
 +    activeFork = kitty
-+
-     spigot {
-         enabled = true
-         buildDataRef = "17f77cee7117ab9d6175f088ae8962bfd04e61a9"
-@@ -104,7 +_,19 @@
-     }
  }
  
--val log4jPlugins = sourceSets.create("log4jPlugins")
-+sourceSets {
-+    main {
-+        java { srcDir("../paper-server/src/main/java") }
-+        resources { srcDir("../paper-server/src/main/resources") }
-+    }
-+    test {
-+        java { srcDir("../paper-server/src/test/java") }
-+        resources { srcDir("../paper-server/src/test/resources") }
-+    }
-+}
-+val log4jPlugins = sourceSets.create("log4jPlugins") {
-+    java { srcDir("../paper-server/src/log4jPlugins/java") }
-+}
- configurations.named(log4jPlugins.compileClasspathConfigurationName) {
-     extendsFrom(configurations.compileClasspath.get())
- }
-@@ -127,7 +_,7 @@
+ tasks.generateDevelopmentBundle {
+@@ -109,12 +_,12 @@
  }
  
  dependencies {
 -    implementation(project(":paper-api"))
 +    implementation(project(":kitty-api"))
-     implementation("ca.spottedleaf:concurrentutil:0.0.8")
+     implementation("ca.spottedleaf:concurrentutil:0.0.10")
      implementation("org.jline:jline-terminal-ffm:3.27.1") // use ffm on java 22+
      implementation("org.jline:jline-terminal-jni:3.27.1") // fall back to jni on java 21
-@@ -153,6 +_,8 @@
-     implementation("org.ow2.asm:asm-commons:9.8")
-     implementation("org.spongepowered:configurate-yaml:4.2.0")
+     implementation("net.minecrell:terminalconsoleappender:1.3.0")
+-    implementation("net.kyori:adventure-text-serializer-ansi")
++    implementation("net.kyori:adventure-text-serializer-ansi:4.26.1")
  
-+    implementation("com.rabbitmq:amqp-client:5.27.1")
+     /*
+       Required to add the missing Log4j2Plugins.dat file from log4j-core
+@@ -157,6 +_,9 @@
+     // Spark
+     implementation("me.lucko:spark-api:0.1-20240720.200737-2")
+     implementation("me.lucko:spark-paper:1.10.152")
 +
-     // Deps that were previously in the API but have now been moved here for backwards compat, eventually to be removed
-     runtimeOnly("commons-lang:commons-lang:2.6")
-     runtimeOnly("org.xerial:sqlite-jdbc:3.49.1.0")
-@@ -264,7 +_,7 @@
-     jvmArgumentProviders.add(provider)
++    // Kitty Paper
++    implementation("com.rabbitmq:amqp-client:5.27.1")
  }
  
--val generatedDir: java.nio.file.Path = layout.projectDirectory.dir("src/generated/java").asFile.toPath()
-+val generatedDir: java.nio.file.Path = rootProject.layout.projectDirectory.dir("paper-server/src/generated/java").asFile.toPath()
- idea {
-     module {
-         generatedSourceDirs.add(generatedDir.toFile())
+ tasks.jar {
