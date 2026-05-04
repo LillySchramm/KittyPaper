@@ -18,7 +18,7 @@ build_server:
     # I feel like these copies should be done automatically by gradle, but for some reason they aren't, so here we are
     - cp paper-api/src/generated/java paper-api/src/main -r
     - cp paper-server/src/generated/java paper-server/src/main -r
-    - gradle build
+    - gradle createPaperclipJar
     - cp kitty-server/build/libs/kitty-paperclip-26.1.2.local-SNAPSHOT.jar server.jar
   needs: []
 
