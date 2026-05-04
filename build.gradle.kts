@@ -8,7 +8,7 @@ plugins {
 
 paperweight {
     upstreams.paper {
-        ref = providers.gradleProperty("paperRef")
+        ref = providers.gradleProperty("paperCommit")
 
         patchFile {
             path = "paper-server/build.gradle.kts"

@@ -17,6 +17,29 @@
  }
  
  tasks.generateDevelopmentBundle {
+@@ -86,7 +_,21 @@
+     }
+ }
+ 
+-val log4jPlugins = sourceSets.create("log4jPlugins")
++sourceSets {
++    main {
++        java { srcDir("../paper-server/src/main/java") }
++        resources { srcDir("../paper-server/src/main/resources") }
++    }
++    test {
++        java { srcDir("../paper-server/src/test/java") }
++        resources { srcDir("../paper-server/src/test/resources") }
++    }
++}
++
++val log4jPlugins = sourceSets.create("log4jPlugins") {
++    java { srcDir("../paper-server/src/log4jPlugins/java") }
++}
++
+ configurations.named(log4jPlugins.compileClasspathConfigurationName) {
+     extendsFrom(configurations.compileClasspath.get())
+ }
 @@ -109,12 +_,12 @@
  }
  
@@ -42,3 +65,60 @@
  }
  
  tasks.jar {
+@@ -237,19 +_,12 @@
+     jvmArgumentProviders.add(provider)
+ }
+ 
+-val generatedDir: java.nio.file.Path = layout.projectDirectory.dir("src/generated/java").asFile.toPath()
++val generatedDir: java.nio.file.Path = layout.projectDirectory.dir("../paper-server/src/generated/java").asFile.toPath()
+ idea {
+     module {
+         generatedSourceDirs.add(generatedDir.toFile())
+     }
+ }
+-sourceSets {
+-    main {
+-        java {
+-            srcDir(generatedDir)
+-        }
+-    }
+-}
+ 
+ fun TaskContainer.registerRunTask(
+     name: String,
+@@ -315,19 +_,19 @@
+     mainClass.set(null as String?)
+ }
+ 
+-fill {
+-    project("paper")
+-    versionFamily(paperweight.minecraftVersion.map { it.split(".", "-").takeWhile { part -> part.toIntOrNull() != null }.take(2).joinToString(".") })
+-    version(paperweight.minecraftVersion)
+-
+-    build {
+-        channel = providers.gradleProperty("channel").map { BuildChannel.valueOf(it.uppercase()) }
+-
+-        downloads {
+-            register("server:default") {
+-                file = tasks.createPaperclipJar.flatMap { it.outputZip }
+-                nameResolver.set { project, _, version, build -> "$project-$version-$build.jar" }
+-            }
+-        }
+-    }
+-}
++//fill {
++//    project("paper")
++//    versionFamily(paperweight.minecraftVersion.map { it.split(".", "-").takeWhile { part -> part.toIntOrNull() != null }.take(2).joinToString(".") })
++//    version(paperweight.minecraftVersion)
++//
++//    build {
++//        channel = providers.gradleProperty("channel").map { BuildChannel.valueOf(it.uppercase()) }
++//
++//        downloads {
++//            register("server:default") {
++//                file = tasks.createPaperclipJar.flatMap { it.outputZip }
++//                nameResolver.set { project, _, version, build -> "$project-$version-$build.jar" }
++//            }
++//        }
++//    }
++//}
