@@ -29,8 +29,8 @@
 -                metrics.addCustomChart(new Metrics.DrilldownPie("java_version", () -> {
 +
 +                metrics.addCustomChart(new Metrics.SingleLineChart("blockedIps", () -> com.kittyscan.server.KittyStats.getBlockedIpCount()));
-+
 +                metrics.addCustomChart(new Metrics.SimplePie("onlineMode", () -> Bukkit.getOnlineMode() ? "online" : "offline"));
++
 +                metrics.addCustomChart(new Metrics.DrilldownPie("javaVersion", () -> {
                      Map<String, Map<String, Integer>> map = new HashMap<>();
                      String javaVersion = System.getProperty("java.version");

@@ -3,7 +3,7 @@ stages:
   - upload
 
 build_server:
-  image: gradle:9.2-jdk25
+  image: gradle:9.4-jdk25
   stage: build
   artifacts:
     untracked: false

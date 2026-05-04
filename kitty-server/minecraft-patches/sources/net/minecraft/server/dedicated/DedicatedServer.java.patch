@@ -1,6 +1,6 @@
 --- a/net/minecraft/server/dedicated/DedicatedServer.java
 +++ b/net/minecraft/server/dedicated/DedicatedServer.java
-@@ -94,6 +_,8 @@
+@@ -98,6 +_,8 @@
      private @Nullable ManagementServer jsonRpcServer;
      private long lastHeartbeat;
  
@@ -8,8 +8,8 @@
 +
      public DedicatedServer(
          joptsimple.OptionSet options, net.minecraft.server.WorldLoader.DataLoadContext worldLoader, // CraftBukkit - Signature changed
-         Thread serverThread,
-@@ -115,6 +_,9 @@
+         final Thread serverThread,
+@@ -132,6 +_,9 @@
          } else {
              this.codeOfConductTexts = Map.of();
          }

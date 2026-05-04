@@ -1,6 +1,6 @@
 --- a/net/minecraft/server/MinecraftServer.java
 +++ b/net/minecraft/server/MinecraftServer.java
-@@ -1292,7 +_,8 @@
+@@ -1333,7 +_,8 @@
              // Paper end - Add onboarding message for initial server start
              // Paper start - Improve outdated version checking
              if (System.getProperty("paper.disableStartupVersionCheck") == null && io.papermc.paper.configuration.GlobalConfiguration.get().updateChecker.enabled) {
@@ -10,13 +10,13 @@
              }
              // Paper end - Improve outdated version checking
  
-@@ -1747,7 +_,8 @@
+@@ -1786,7 +_,8 @@
  
-             for (int i = 0; i < min; i++) {
-                 ServerPlayer serverPlayer = players.get(randomInt + i);
--                list.add(serverPlayer.allowsListing() ? serverPlayer.nameAndId() : ANONYMOUS_PLAYER_PROFILE);
-+                boolean allowsListing = serverPlayer.allowsListing() && !com.kittyscan.server.KittyConfig.anonymizePlayerListing;
-+                list.add(allowsListing ? serverPlayer.nameAndId() : ANONYMOUS_PLAYER_PROFILE);
+             for (int i = 0; i < sampleSize; i++) {
+                 ServerPlayer player = players.get(offset + i);
+-                sample.add(player.allowsListing() ? player.nameAndId() : ANONYMOUS_PLAYER_PROFILE);
++                boolean allowsListing = player.allowsListing() && !com.kittyscan.server.KittyConfig.anonymizePlayerListing;
++                sample.add(allowsListing ? player.nameAndId() : ANONYMOUS_PLAYER_PROFILE);
              }
  
-             Util.shuffle(list, this.random);
+             Util.shuffle(sample, this.random);

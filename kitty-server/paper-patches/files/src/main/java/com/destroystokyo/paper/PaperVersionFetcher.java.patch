@@ -1,6 +1,6 @@
 --- a/src/main/java/com/destroystokyo/paper/PaperVersionFetcher.java
 +++ b/src/main/java/com/destroystokyo/paper/PaperVersionFetcher.java
-@@ -112,30 +_,7 @@
+@@ -107,30 +_,7 @@
      }
  
      private static Component getUpdateStatusMessage() {
